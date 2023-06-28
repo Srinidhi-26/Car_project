@@ -1,27 +1,23 @@
+# Installed Imports
 from dataclasses import dataclass
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
-from app import app, ma, db
-
-
-# db = SQLAlchemy(app)
-# app.app_context().push()
-# migrate = Migrate(app, db, compare_type=True)
-
+# Custom Imports
+from app import ma, db
 
 @dataclass
 class Car(db.Model):
-    id: int = db.Column(db.Integer, primary_key=True)
-    name: str = db.column(db.Text)
-    miles_per_gallon: int = db.column(db.Integer)
-    cylinders: int = db.column(db.Integer)
-    displacement: int = db.column(db.Integer)
-    horsepower: int = db.column(db.Integer)
-    weight_in_lbs: int = db.column(db.Integer)
-    acceleration: int = db.column(db.Integer)
-    year: str = db.column(db.Text)
-    origin: str = db.column(db.Text)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255))
+    miles_per_gallon = db.Column(db.Float)
+    cylinders = db.Column(db.Integer)
+    displacement = db.Column(db.Float)
+    horsepower = db.Column(db.Float)
+    weight_in_lbs = db.Column(db.Float)
+    acceleration = db.Column(db.Float)
+    year = db.Column(db.String(255))
+    origin = db.Column(db.String(255))
 
 
 class CarSchema(ma.Schema):

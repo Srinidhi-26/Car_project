@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import os
 import sys
-import requests, json
+import json
 
 parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(parentdir)
@@ -9,32 +9,15 @@ sys.path.insert(0, parentdir)
 
 from app import app
 from app.models import db, Car
-from app.views import car_api
 
+file_path = os.path.join(os.path.dirname(__file__), "cars.json")
 
-class CarException(Exception):
-    def __init__(self, message, code=400):
-        self.message = message
-        self.code = code
-
-
-# @car_api.errorhandler(CarException)
-# def handle_scheduler_exception(e):
-#     app.logger.exception(e)
-#     return {"success": False, "error": e.message}, e.code
-
-
-file_path = "./bin/cars.json"
-with open(file_path, 'r') as file: 
+with open(file_path, "r") as file:
     json_data = json.load(file)
-
 
 
 def load_data():
     for car in json_data:
-        # existing_pokemon = Pokemon.query.filter_by(name=pokemon["Name"]).first()
-        # if existing_pokemon:
-        #     raise PokemonException(f"Pokemon data already present")
         car_data = Car(
             name=car["Name"],
             miles_per_gallon=car["Miles_per_Gallon"],
